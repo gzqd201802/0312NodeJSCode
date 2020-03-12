@@ -1,0 +1,8 @@
+# #号是注释
+# .gitignore 这个文件名称时固定的，在 git add 的时候就会忽略掉以下文件或文件夹
+
+# 忽略所有 node_modules 文件夹
+node_modules
+uploads
+
+# 忽略单个文件

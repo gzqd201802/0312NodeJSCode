@@ -92,12 +92,12 @@
       <div class="row">
         <div class="col-md-12">
           <div class="panel panel-default">
-              <div class="panel-heading clearfix">
-                  <div class="row">
-                  <div class="col-md-6 page-title">英雄信息修改</div>
-                  <div class="col-md-6 text-right">当前位置：首页 &gt; 英雄信息修改</div>
-                </div>
-                </div>
+            <div class="panel-heading clearfix">
+              <div class="row">
+                <div class="col-md-6 page-title">英雄信息修改</div>
+                <div class="col-md-6 text-right">当前位置：首页 &gt; 英雄信息修改</div>
+              </div>
+            </div>
             <div class="panel-body">
               <form action="#" method="" class="form-horizontal">
                 <!-- 隐藏一个input -->
@@ -105,23 +105,23 @@
                 <div class="form-group">
                   <label for="heroName" class="col-sm-2 control-label">姓名</label>
                   <div class="col-sm-10">
-                    <input required type="text" class="form-control" id="heroName" name="heroName"
-                      placeholder="请输入姓名" value="盖伦" />
+                    <input required type="text" class="form-control" id="heroName" name="heroName" placeholder="请输入姓名"
+                      value="盖伦" />
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="skillName" class="col-sm-2 control-label">技能</label>
                   <div class="col-sm-10">
-                    <input required type="text" class="form-control" id="skillName" name="skillName"
-                      placeholder="请输入技能" value="躲草丛" />
+                    <input required type="text" class="form-control" id="skillName" name="skillName" placeholder="请输入技能"
+                      value="躲草丛" />
                   </div>
                 </div>
-                <div class="form-group">                 
+                <div class="form-group">
                   <label for="heroIcon" class="col-sm-2 control-label">头像</label>
                   <div class="col-sm-10">
                     <img src="./uploads/盖伦.png" class='preview' alt="">
                     <input required type="file" class="file-input" id="heroIcon" name="heroIcon" />
-                  
+
                   </div>
                 </div>
                 <div class="form-group">
@@ -148,8 +148,122 @@
   Include all compiled plugins (below), or include individual files as needed
 -->
 <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- 引入封装好的 http.js -->
+<script src="./js/http.js"></script>
 <script>
-  $(function(){
-    
+  $(function () {
+    // 1. 从地址栏中把 ?id=xxx 的 id 值找出来
+    // console.log(location);
+
+    // location.search 记录了链接中的参数，也就是获取到 ?参数1=值1 这部分数据。
+    // 数组的结构赋值需要按循序获取
+    let [, id] = location.search.split('=');
+    // 结构赋值等价于以下这行代码
+    // const id = location.search.split('=')[1];
+    // 把 id 转成数值型，用于判断数据类型
+    id = Number(id);
+    console.log('页面的id参数', id);
+    // 如果 id 是 NaN 获取 id 的值是 0
+    if (!id) {
+      // 提示用户
+      alert('请用正确方式打开页面');
+      // 跳转会首页，编辑页需要通过首页点击编辑才进入
+      location.href = './index.html';
+    }
+
+
+    // 目标：### 英雄查询
+    // 请求地址：/search
+    // 请求方式：get
+    // 请求参数：
+    // |  id  | number | 英雄id |
+
+    $.ajax({
+      type: "get",
+      url: urls.search,
+      data: {
+        id
+        // 等价于
+        // id: id
+      },
+      dataType: "json",
+      success: function ({ msg, code, data }) {
+        console.log(msg, code, data);
+        // 查询成功是 200
+        if (code === 200) {
+          // data 中的数据显示到表单中
+          const { id, name, skill, icon } = data;
+          // 把 name 和 skill 添加到输入框中
+          $('#heroName').val(name);
+          $('#skillName').val(skill);
+          // 把图片链接添加到 img 的 src 中
+          $('.preview').attr('src', icon);
+          // 给保存按钮也添加个 data-id
+          $('.btn-save').attr('data-id', id);
+        } else {
+          alert('操作错误');
+        }
+
+      }
+    });
+
+
+    // 目标：### 英雄编辑
+    // 请求地址：/edit
+    // 请求方式：post
+    // 请求参数：请使用formData的方式提交
+    // |  id   | number | 英雄id   |
+    // | name  | string | 英雄姓名 |
+    // | skill | string | 英雄技能 |
+    // | icon  | string | 英雄头像 |
+
+    // 给保存按钮添加点击事件
+    $('.btn-save').click(function (e) {
+      e.preventDefault();
+      //  1. 获取输入框的值和图片对象
+      const name = $('#heroName').val();
+      const skill = $('#skillName').val();
+      // 注意这里的写法，需要转换成原生方式获取到对象
+      const icon = $('#heroIcon')[0].files[0];
+      // const id = $(this).attr('data-id');
+      //  2. 参数需要以 formdata 格式提交，需要按照文档把四个参数都添加到 fd 对象中
+
+      // 准备一个 fd 对象
+      const fd = new FormData();
+      // 给 fd 对象添加四个参数
+      fd.append('name', name);
+      fd.append('skill', skill);
+      fd.append('icon', icon);
+      fd.append('id', id);
+      //  3. ajax 请求实现修改
+
+      $.ajax({
+        type: 'post',
+        url: urls.edit,
+        // fd 对象就是参数
+        data: fd,
+        // 无需自动添加请求头
+        contentType: false,
+        // 无需转换成字符串
+        processData: false,
+        dataType: "json",
+        success({ msg, code }) {
+          // console.log(msg, code);
+          if (code === 200) {
+            alert(msg);
+            // 修改成功回到首页
+            location.href = './index.html';
+          } else {
+            alert(msg);
+          }
+        }
+      });
+
+    });
+
+
+
+
+
   })
 </script>

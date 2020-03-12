@@ -4,5 +4,6 @@
 # 忽略所有 node_modules 文件夹
 node_modules
 uploads
+04-扩展
 
 # 忽略单个文件

@@ -1,165 +1,147 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bootstrap 101 Template</title>
 
-    <!-- Bootstrap -->
-    <link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bootstrap 101 Template</title>
 
-    <!--
+  <!-- Bootstrap -->
+  <link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!--
       HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
     -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>
-      .wrap {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: url('images/bg03.jpg') center bottom no-repeat;
-        overflow: auto;
-      }
-      .navbar-brand {
-        padding: 10px 15px;
-      }
-      .page-title {
-        font-size: 16px;
-        font-weight: bold;
-      }
-      .file-input {
-        outline: none;
-        display: inline-block;
-        margin-top: 5px;
-      }
-      .form-group {
-        margin-bottom: 20px;
-      }
-      .form-horizontal {
-        margin-top: 10px;
-      }
-      .logout {
-        font-weight: 900;
-        font-size: 20px;
-        color: #ff0000;
-        text-decoration: none;
-      }
-      .logout:hover {
-        text-decoration: none;
-        color: yellowgreen;
-      }
-      .preview {
-        width: 100px;
-        height: 100px;
-      }
-    </style>
-  </head>
+  <style>
+    .wrap {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: url('images/bg03.jpg') center bottom no-repeat;
+      overflow: auto;
+    }
 
-  <body>
-    <div class="wrap">
-      <nav class="navbar  navbar-inverse navbar-static-top">
-        <div class="container">
-          <div class="navbar-header">
-            <button
-              type="button"
-              class="navbar-toggle collapsed"
-              data-toggle="collapse"
-              data-target="#mymenu"
-            >
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="./index.html"
-              ><img src="images/logo.png"
-            /></a>
-          </div>
-        </div>
-      </nav>
+    .navbar-brand {
+      padding: 10px 15px;
+    }
 
+    .page-title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .file-input {
+      outline: none;
+      display: inline-block;
+      margin-top: 5px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-horizontal {
+      margin-top: 10px;
+    }
+
+    .logout {
+      font-weight: 900;
+      font-size: 20px;
+      color: #ff0000;
+      text-decoration: none;
+    }
+
+    .logout:hover {
+      text-decoration: none;
+      color: yellowgreen;
+    }
+
+    .preview {
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <nav class="navbar  navbar-inverse navbar-static-top">
       <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="panel panel-default">
-              <div class="panel-heading clearfix">
-                <div class="row">
-                  <div class="col-md-6 page-title">新增英雄</div>
-                  <div class="col-md-6 text-right">
-                    当前位置：首页 &gt; 新增英雄
-                  </div>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mymenu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.html"><img src="images/logo.png" /></a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+              <div class="row">
+                <div class="col-md-6 page-title">新增英雄</div>
+                <div class="col-md-6 text-right">
+                  当前位置：首页 &gt; 新增英雄
                 </div>
               </div>
-              <div class="panel-body">
-                <form action="#" method="" class="form-horizontal">
-                  <div class="form-group">
-                    <label for="heroName" class="col-sm-2 control-label"
-                      >姓名</label
-                    >
-                    <div class="col-sm-10">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="heroName"
-                        name="heroName"
-                        placeholder="请输入姓名"
-                      />
-                    </div>
+            </div>
+            <div class="panel-body">
+              <form action="#" method="" class="form-horizontal">
+                <div class="form-group">
+                  <label for="heroName" class="col-sm-2 control-label">姓名</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="heroName" name="name" placeholder="请输入姓名" />
                   </div>
-                  <div class="form-group">
-                    <label for="skillName" class="col-sm-2 control-label"
-                      >技能</label
-                    >
-                    <div class="col-sm-10">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="skillName"
-                        name="skillName"
-                        placeholder="请输入技能"
-                      />
-                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="skillName" class="col-sm-2 control-label">技能</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="skillName" name="skill" placeholder="请输入技能" />
                   </div>
-                  <div class="form-group">
-                    <label for="heroIcon" class="col-sm-2 control-label"
-                      >头像</label
-                    >
-                    <div class="col-sm-10">
-                      <!-- 预览的标签 -->
+                </div>
+                <div class="form-group">
+                  <label for="heroIcon" class="col-sm-2 control-label">头像</label>
+                  <div class="col-sm-10">
+                    <!-- 预览的标签 -->
+                    <label for="heroIcon">
                       <img src="./uploads/盖伦.png" class="preview" alt="" />
-                      <input
-                        type="file"
-                        class="file-input"
-                        id="heroIcon"
-                        name="heroIcon"
-                      />
-                    </div>
+                    </label>
+                    <input style="display: none;" type="file" class="file-input" id="heroIcon" name="icon" />
                   </div>
-                  <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <button type="button" class="btn btn-success btn-add">
-                        新 增
-                      </button>
-                      <button type="button" class="btn btn-danger btn-add">
-                        取消
-                      </button>
-                    </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-success btn-add">
+                      新 增
+                    </button>
+                    <button type="button" class="btn btn-danger btn-cancel">
+                      取消
+                    </button>
                   </div>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="./lib/bootstrap/js/jquery-1.12.4.js"></script>
@@ -167,3 +149,89 @@
   Include all compiled plugins (below), or include individual files as needed
 -->
 <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- 引入封装好的 http.js -->
+<script src="./js/http.js"></script>
+<script>
+
+  $(function () {
+
+    // 目标2：实现英雄新增功能
+
+    // 当点击按钮的时候
+
+    //   2. ajax 请求把数据发送给服务端实现新增功能
+    $('.btn-add').click(function (e) {
+      // 阻止表单默认行为
+      e.preventDefault();
+      //   1. 获取英雄名字，英雄技能，英雄图片
+      const name = $('#heroName').val().trim();
+      const skill = $('#skillName').val().trim();
+
+      // 这里是先找到上传按钮，第一个 [0] 转成原生对象，第二个 [0]，从文件对象中取出上传的一张图片
+      // 必须转成原生对象才能获取到 file 对象
+      const icon = $('#heroIcon')[0].files[0];
+
+      if (name === '' && skill === '') {
+        alert('请输入英雄名和技能名称');
+      } else if (!icon) {
+        alert('请上传英雄图片');
+      } else {
+        // formdata 解决方案1：
+        // 涉及到图片的上传，我们使用 fd 对象
+        const fd = new FormData();
+        // 往 fd 对象中添加参数
+        fd.append('name', name);
+        fd.append('skill', skill);
+        fd.append('icon', icon);
+
+        // formdata 解决方案2：
+        // 把当前点击按钮的表单，作为 FormDate 的参数
+        // 这种写法需要在 html 结构中把 name 属性的值改成 后端参数的名称
+        // const fd = new FormData(this.form);
+
+        // ajax post 请求实现英雄新增
+        $.ajax({
+          type: "post",
+          url: urls.add,
+          // 要实现图片上传，我们需要上传 formdata 对象
+          data: fd,
+          // fd 上传不要jq帮忙添加请求头
+          contentType: false,
+          // fd 上传不要jq帮忙把参数转成字符串
+          processData: false,
+          dataType: "json",
+          // 结构赋值可以直接写在形参位置，直接解构
+          success({ code, msg }) {
+            // console.log(response);
+            console.log(code, msg);
+            // 从 response 对象中解构出 code 和 msg
+            // const { code, msg } = response;
+            // 新增成功的提示是 201
+            if (code === 201) {
+              alert('新增成功');
+              // 新增成功跳转回首页
+              location.href = './index.html';
+            } else {
+              alert('新增失败');
+            }
+          }
+        });
+      }
+    });
+
+
+    // 目标3：图片预览功能
+    //   3.1.点击 图片 和 点击上传按钮都可以实现图片选择, 在 HTML 结构中通过 label 标签实现即可
+    $('#heroIcon').change(function (e) {
+      // 获取自身的 file 对象
+      const file = this.files[0];
+      // 获取 file 对象的浏览器缓存中的路径
+      const url = URL.createObjectURL(file);
+      // 把预览图片的 src 地址改成 浏览器的缓存路径实现预览
+      $('.preview').attr('src', url);
+
+    });
+
+  })
+
+</script>

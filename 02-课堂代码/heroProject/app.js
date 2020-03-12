@@ -22,7 +22,7 @@ const app = express();
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // 如果要实现同源访问，前端代码就要放到服务器上，并配置静态资源访问权限。
-// http://127.0.0.1:3000/
+// 第一个参数 /：表示用 http://127.0.0.1:3000/ 即可访问到 www 这级目录
 app.use('/', express.static(path.join(__dirname, 'www')));
 
 // 通过中间件语法实现

@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bootstrap 101 Template</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
   <!-- Bootstrap -->
   <link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -144,7 +145,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <!-- <tr>
                     <td><img src="./uploads/盖伦.png" alt="" /></td>
                     <td>盖伦</td>
                     <td>躲草丛</td>
@@ -152,7 +153,7 @@
                       <a href="./edit.html" class="btn btn-primary btn-edit">编辑</a>
                       <a class="btn btn-danger btn-delete">删除</a>
                     </td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
             </div>
@@ -172,17 +173,96 @@
 <script src="./lib/bootstrap/js/jquery-1.12.4.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- 1. 导入模板引擎文件 -->
 <script src="./lib/js/template-web.js"></script>
+<!-- 2. 准备模板，注意添加 id 和 type 属性 -->
+<script id="heroList" type="text/html">
+  {{ each data }}
+  <tr>
+    <td><img src="{{ $value.icon }}" alt="" /></td>
+    <td>{{ $value.name }}</td>
+    <td>{{ $value.skill }}</td>
+    <td>
+      <a href="./edit.html?id={{ $value.id }}" class="btn btn-primary btn-edit">编辑</a>
+      <a data-id="{{ $value.id }}" class="btn btn-danger btn-delete">删除</a>
+    </td>
+  </tr>
+  {{ /each }}
+</script>
+<!-- 引入封装好的 http.js -->
+<script src="./js/http.js"></script>
 <script>
-  $(function(){
-    $.ajax({
-      type: "get",
-      // 获取英雄所有数据
-      url: 'http://127.0.0.1:3000/list',
-      dataType: "json",
-      success: function (response) {
-        console.log(response);
-      }
+  $(function () {
+
+    // 目标1：展示英雄列表
+    // ### 英雄列表
+    // 请求地址：/list
+    // 请求方式：get
+    // 请求参数：无
+    // 1. 通过 ajax 发送请求
+
+    // 把获取数据和渲染列表的业务封装起来
+    //    1. 页面初次打开需要调用
+    //    2. 删除成功之后需要调用
+    const renderList = () => {
+      $.ajax({
+        type: "get",
+        url: urls.list,
+        dataType: "json",
+        success: function (response) {
+          // 从 response 解构出来 code
+          const { code } = response;
+          if (code === 200) {
+            // 2. 通过模板引擎实现列表渲染
+            // console.log(response);
+            // 4. 调用模板
+            const htmlStr = template('heroList', response);
+            // 5. 渲染到页面
+            $('#my-table tbody').html(htmlStr);
+          }
+        }
+      });
+    }
+
+    // 1. 页面初次打开需要调用
+    renderList();
+
+
+    // 2. 删除英雄
+    // ### 英雄删除
+    // 请求地址：/delete
+    // 请求方式：get
+    // 请求参数: id
+
+    // 删除按钮是动态生成的，所以绑定事件的时候需要用 事件委托 实现
+    // 把事件委托给 #my-table，通过删除按钮触发事件
+    $('#my-table').on('click', '.btn-delete', function () {
+      // 获取点击的删除按钮的 id 值
+      const id = $(this).attr('data-id');
+      // ajax 调用接口，实现数据的删除。
+      // 删除成功后，记得重新渲染页面。
+      $.ajax({
+        type: "get",
+        url: urls.delete,
+        data: {
+          // 对象字面量简写，如果对象的 键名称 和 变量(常量) 同名，可以省略一个 
+          id
+          // 等价于以下代码
+          // id:id
+        },
+        dataType: "json",
+        success({ msg, code }) {
+          console.log(msg, code);
+          if (code === 204) {
+            // alert('成功,重新请求列表数据');
+            // 2. 删除成功之后需要调用列表渲染
+            renderList();
+          } else {
+            alert('操作失败');
+          }
+        }
+      });
     });
+
   });
 </script>
